@@ -14,7 +14,6 @@ body {
     transition: background-color 0.5s ease;
     position: relative;
     background-image: url('fundo.jpeg'); /* Um leve padrão de fundo */
-    background-size: 150px 150px;
 }
 
 .erro {
