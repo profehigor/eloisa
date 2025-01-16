@@ -1,9 +1,10 @@
+// Importar o Firebase e inicializar
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push } from "firebase/database";
 
-// Configuração Firebase
+// Configuração do Firebase (insira suas credenciais aqui)
 const firebaseConfig = {
-  apiKey: "AIzaSyDczSaYj3YArZ0R66pl2TjdhokpOUhsBIA",
+   apiKey: "AIzaSyDczSaYj3YArZ0R66pl2TjdhokpOUhsBIA",
   authDomain: "eloisa-7ba7a.firebaseapp.com",
   databaseURL: "https://eloisa-7ba7a-default-rtdb.firebaseio.com",
   projectId: "eloisa-7ba7a",
@@ -13,55 +14,63 @@ const firebaseConfig = {
   measurementId: "G-J3EV5M3Y5D"
 };
 
-// Inicializa Firebase
+// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// Referência ao nó `responses` no Realtime Database
+// Referência ao nó de respostas no Realtime Database
 const responsesRef = ref(database, 'responses');
 
-// Adiciona eventos aos botões
+// Adicionando evento para o botão "Sim"
 document.getElementById('yesButton').addEventListener('click', () => {
-  handleResponse('Sim');
-});
-
-document.getElementById('noButton').addEventListener('click', () => {
-  collectResponse('Não', 'Sem justificativa');
-  showIncorrectScreen();
-});
-
-document.getElementById('notSure').addEventListener('click', () => {
-  handleResponse('Não sei');
-});
-
-// Funções
-function handleResponse(answer) {
   const justification = document.getElementById('justification').value.trim();
-  if (!justification && answer === 'Sim') {
+  if (!justification) {
     alert('Você deve justificar sua resposta.');
     return;
   }
-  const justificationToSave = justification || 'Nenhuma justificativa fornecida.';
-  collectResponse(answer, justificationToSave);
-}
 
-function collectResponse(answer, justification) {
+  // Salvar resposta no Firebase
+  saveResponse('Sim', justification);
+  alert('Obrigado pela colaboração! Te amo muito.');
+});
+
+// Adicionando evento para o botão "Não sei"
+document.getElementById('notSure').addEventListener('click', () => {
+  const justification = document.getElementById('justification').value.trim();
+  if (!justification) {
+    alert('Você deve justificar sua resposta.');
+    return;
+  }
+
+  // Salvar resposta no Firebase
+  saveResponse('Não sei', justification);
+  alert('Obrigado pela colaboração! Te amo, OK?');
+});
+
+// Adicionando evento para o botão "Não"
+document.getElementById('noButton').addEventListener('click', () => {
+  saveResponse('Não', 'Sem justificativa');
+  showIncorrectScreen();
+});
+
+// Função para salvar respostas no Firebase
+function saveResponse(answer, justification) {
   const response = {
     answer,
     justification,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
 
   push(responsesRef, response)
     .then(() => {
-      alert('Resposta salva com sucesso!');
-      console.log('Resposta:', response);
+      console.log('Resposta salva com sucesso:', response);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Erro ao salvar resposta:', error);
     });
 }
 
+// Função para exibir a tela "incorreta"
 function showIncorrectScreen() {
   const incorrectScreen = document.getElementById('incorrect-screen');
   incorrectScreen.style.display = 'flex';
