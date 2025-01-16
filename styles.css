@@ -1,126 +1,106 @@
-* {
+/* styles.css */
+body {
+    font-family: 'Cursive', 'Georgia', serif;
+    background: linear-gradient(45deg, #ffafbd, #ffc3a0);
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f0f6; /* Cor de fundo suave e romântica */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    transition: background-color 0.5s ease;
-    position: relative;
-    background-image: url('fundo.jpeg'); /* Um leve padrão de fundo */
-}
-
-.erro {
-    background-color: #f44336;
-    color: white; /* Fundo vermelho para resposta incorreta */
+    color: #5a2d4a;
 }
 
 .container {
     text-align: center;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 15px; /* Bordas arredondadas */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    width: 350px;
-    background: linear-gradient(to bottom, #ffb6c1, #ff85a1); /* Gradiente de rosa claro para escuro */
+    padding: 20px;
+    margin: 5vh auto;
+    max-width: 600px;
+    border: 2px solid #fddde6;
+    background-color: #ffffffbb;
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-button {
-    margin: 10px;
-    padding: 15px 30px;
-    font-size: 18px;
+.title {
+    font-size: 2rem;
     font-weight: bold;
-    cursor: pointer;
+    color: #ff568c;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.textarea {
+    width: 90%;
+    max-width: 500px;
+    height: 80px;
+    font-size: 1rem;
+    border: 1px solid #ffcbcf;
+    border-radius: 8px;
+    padding: 8px;
+    margin-top: 15px;
+    outline: none;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.textarea:focus {
+    border-color: #ff5678;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
     border: none;
-    border-radius: 30px; /* Bordas bem arredondadas para os botões */
-    background-color: #ff85a1;
-    color: white;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-button:hover {
-    background-color: #ff6384; /* Cor de hover mais intensa */
-    transform: scale(1.1); /* Animação de aumento suave ao passar o mouse */
-}
-
-button:active {
-    background-color: #ff1a60; /* Cor de clique mais escura */
-}
-
-#justificativaContainer {
-    margin-top: 20px;
-}
-
-#justificativa {
-    width: 80%;
-    height: 100px;
-    padding: 12px;
-    border-radius: 10px;
-    border: 2px solid #ff85a1;
-    background-color: #fff0f6; /* Fundo rosa claro */
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    color: #333;
-}
-
-#message {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-}
-
-.hidden {
-    display: none;
-}
-
-#respostaIncorreta {
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-}
-
-#voltarBtn {
-    margin-top: 20px;
-    font-size: 16px;
-    background-color: #ff85a1;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 20px;
-}
-
-#voltarBtn:hover {
-    background-color: #ff6384;
+.btn:hover {
     transform: scale(1.1);
 }
 
+.btn.yes {
+    background-color: #ff7eb3;
+}
 
-#naoSeiBtn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: top 0.4s ease, left 0.4s ease; /* Transições suaves */
-    background-color: #ff85a1;
+.btn.no {
+    background-color: #ff3a66;
+}
+
+.btn.maybe {
+    background-color: #ffaf85;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+}
+
+.overlay-content {
     color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin-top: 40vh;
+    font-size: 1.5rem;
 }
 
-#naoSeiBtn:hover {
-    background-color: #ff6384; /* Cor mais intensa ao passar o mouse */
-    transform: scale(1.1); /* Efeito de crescimento */
+.message {
+    animation: fadeIn 2s ease-in;
 }
 
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
