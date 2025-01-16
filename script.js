@@ -1,5 +1,21 @@
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID",
+};
+
+// Inicializa o Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 const responses = JSON.parse(localStorage.getItem('responses')) || [];
 
+// Manipula os botões e coleta as respostas
 document.getElementById('yesButton').addEventListener('click', () => {
     handleResponse('Sim');
 });
@@ -36,10 +52,17 @@ function collectResponse(answer, justification) {
     };
     responses.push(response);
 
-    // Armazena no localStorage
+    // Armazena no localStorage como backup
     localStorage.setItem('responses', JSON.stringify(responses));
 
-    console.log('Resposta coletada:', response);
+    // Envia as respostas para o Firebase
+    firebase.database().ref('responses').push(response)
+        .then(() => {
+            console.log('Resposta enviada ao servidor:', response);
+        })
+        .catch(error => {
+            console.error('Erro ao enviar resposta:', error);
+        });
 }
 
 function showIncorrectScreen() {
