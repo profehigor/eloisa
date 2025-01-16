@@ -41,30 +41,26 @@ document.getElementById("voltarBtn").addEventListener("click", function() {
 });
 
 // Função para mover o botão "Não Sei" para uma posição aleatória
+// Função para mover o botão "Não Sei" para uma posição aleatória
 function moverBotaoNaoSei() {
     const botaoNaoSei = document.getElementById("naoSeiBtn");
 
+    // Tamanho da tela e do botão
     const larguraTela = window.innerWidth;
     const alturaTela = window.innerHeight;
+    const larguraBotao = botaoNaoSei.offsetWidth;
+    const alturaBotao = botaoNaoSei.offsetHeight;
 
-    const novaPosicaoX = Math.random() * (larguraTela - botaoNaoSei.offsetWidth);
-    const novaPosicaoY = Math.random() * (alturaTela - botaoNaoSei.offsetHeight);
+    // Calcula nova posição dentro dos limites da tela
+    const novaPosicaoX = Math.random() * (larguraTela - larguraBotao);
+    const novaPosicaoY = Math.random() * (alturaTela - alturaBotao);
 
+    // Aplica a nova posição ao botão
     botaoNaoSei.style.left = `${novaPosicaoX}px`;
     botaoNaoSei.style.top = `${novaPosicaoY}px`;
 }
 
-// Adiciona o movimento do botão "Não Sei" ao passar o mouse por cima
-document.getElementById("naoSeiBtn").addEventListener("mouseover", function() {
-    this.classList.add("fugindo");
-    
-    // Chama a função para mover o botão para uma posição aleatória
-    setTimeout(function() {
-        moverBotaoNaoSei();
-        document.getElementById("naoSeiBtn").classList.remove("fugindo");
-    }, 500); // Aguarda 500ms para permitir que o movimento aconteça
-});
-
-document.getElementById("naoSeiBtn").addEventListener("click", function() {
-    // O botão "Não Sei" não faz nada enquanto se move
+// Adiciona o evento para mover o botão "Não Sei" ao passar o mouse por cima
+document.getElementById("naoSeiBtn").addEventListener("mouseover", function () {
+    moverBotaoNaoSei();
 });
