@@ -1,30 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo de Pergunta</title>
+    <title>Romantic Quiz</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Você ainda me ama?</h1>
-        <button id="simBtn">Sim</button>
-        <button id="naoBtn">Não</button>
-        <button id="naoSeiBtn">Não Sei</button>
-
-        <div id="justificativaContainer">
-            <label for="justificativa">Justifique sua resposta:</label>
-            <textarea id="justificativa" required></textarea>
+        <h1 class="title">Ainda me ama?</h1>
+        <textarea id="justification" class="textarea" placeholder="Justifique sua resposta"></textarea>
+        <div class="buttons">
+            <button class="btn yes" id="yesButton">Sim</button>
+            <button class="btn no" id="noButton">Não</button>
+            <button class="btn maybe" id="notSure">Talvez</button>
         </div>
-
-        <p id="message"></p>
     </div>
 
-    <div id="respostaIncorreta" class="hidden">
-        <h1>Resposta incorreta</h1>
-        <p id="contagem">5</p>
-        <button id="voltarBtn" class="hidden">Voltar</button>
+    <div id="incorrect-screen" class="overlay">
+        <div class="overlay-content">
+            <p class="message">Oops! Resposta incorreta. Tente novamente em  <span id="countdown">5</span> segundos...</p>
+        </div>
     </div>
 
     <script src="script.js"></script>
