@@ -1,68 +1,46 @@
+const responses = JSON.parse(localStorage.getItem('responses')) || [];
+
 document.getElementById('yesButton').addEventListener('click', () => {
-    const justification = document.getElementById('justification').value.trim();
-    if (!justification) {
-        alert('Você deve justificar sua resposta.');
-        return;
-    }
-    alert('Obrigado pela colaboração! Te amo muito.');
+    handleResponse('Sim');
 });
 
 document.getElementById('notSure').addEventListener('click', () => {
+    handleResponse('Não sei');
+});
+
+document.getElementById('noButton').addEventListener('click', () => {
+    collectResponse('Não', 'Sem justificativa');
+    showIncorrectScreen();
+});
+
+function handleResponse(answer) {
     const justification = document.getElementById('justification').value.trim();
     if (!justification) {
         alert('Você deve justificar sua resposta.');
         return;
     }
-    alert('Obrigado pela colaboração! Te amo, OK?');
-});
+    collectResponse(answer, justification);
 
-document.getElementById('noButton').addEventListener('click', () => {
-    showIncorrectScreen();
-});
-
-
-
-function showIncorrectScreen() {
-    const incorrectScreen = document.getElementById('incorrect-screen');
-    incorrectScreen.style.display = 'flex';
-
-    let countdown = 5;
-    const countdownSpan = document.getElementById('countdown');
-    countdownSpan.textContent = countdown;
-
-    const interval = setInterval(() => {
-        countdown--;
-        countdownSpan.textContent = countdown;
-
-        if (countdown <= 0) {
-            clearInterval(interval);
-            incorrectScreen.style.display = 'none';
-        }
-    }, 1000);
+    if (answer === 'Sim') {
+        alert('Obrigado pela colaboração! Te amo muito.');
+    } else if (answer === 'Não sei') {
+        alert('Obrigado pela colaboração! Te amo, OK?');
+    }
 }
-document.getElementById('yesButton').addEventListener('click', () => {
-    const justification = document.getElementById('justification').value.trim();
-    if (!justification) {
-        alert('Você deve justificar sua resposta.');
-        return;
-    }
-    alert('Obrigado pela colaboração! Te amo muito.');
-});
 
-document.getElementById('notSure').addEventListener('click', () => {
-    const justification = document.getElementById('justification').value.trim();
-    if (!justification) {
-        alert('Você deve justificar sua resposta.');
-        return;
-    }
-    alert('Obrigado pela colaboração! Te amo, OK?');
-});
+function collectResponse(answer, justification) {
+    const response = { 
+        answer, 
+        justification, 
+        timestamp: new Date().toISOString() 
+    };
+    responses.push(response);
 
-document.getElementById('noButton').addEventListener('click', () => {
-    showIncorrectScreen();
-});
+    // Armazena no localStorage
+    localStorage.setItem('responses', JSON.stringify(responses));
 
-
+    console.log('Resposta coletada:', response);
+}
 
 function showIncorrectScreen() {
     const incorrectScreen = document.getElementById('incorrect-screen');
